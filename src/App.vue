@@ -5,6 +5,47 @@
   </nav>
   <router-view/>
 </template>
+<script>
+import axios   from 'axios' 
+
+export default {
+  data() {
+    return{
+      postArr:[]
+    }
+    
+  },
+    mounted() {
+      this.logMovies();
+    },
+  methods: {
+      getPost() {
+        
+       axios.post("http://91.220.155.235:8080/auth-service/login?username=RonaldWeasley&password=4C1iTdXDpN")
+      .then((response) =>console.log(response))
+      .catch((error)=> console.log(error))
+//       axios.get('http://91.220.155.235:8080/auth-service/', {
+//     auth: {
+//         login: 'RonaldWeasley',
+//         password: '4C1iTdXDpN'
+//     }
+// })
+// .then(response => {
+//     console.log('Response:', response.data);
+// })
+// .catch(error => {
+//     console.error('Error:', error);
+// });
+      //  axios.get("http://91.220.155.235:8080/FrontTestingService-0.0.1/userInfo/findAll")
+      // .then((response) =>console.log(response))
+      // .catch((error)=> console.log(error))
+    },
+    async logMovies() {
+  
+}
+  },
+}
+</script>
 
 <style lang="scss">
 #app {
