@@ -1,71 +1,121 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  
+  <div>
+    <input  @click="getPost" class="inputField__submit" type="submit" value="Post">
+    <!-- <all-users-posts :posts="posts"/> -->
+    <user-info/>
+</div>
+<RouterView></RouterView>
 </template>
 <script>
 import axios   from 'axios' 
+import AllUsersPosts from "@/components/AllUsersPosts.vue"
+import UserInfo from "@/components/UserInfo.vue"
 
 export default {
+  components: {
+    AllUsersPosts,UserInfo
+    
+  },
   data() {
     return{
-      postArr:[]
+      posts : {
+                    briefDescription : '',
+                    comments : [ 
+                        {
+                        comment : {
+                            dateTime :'',
+                            email:'',
+                            id:0,
+                            textComment:'',
+                            userInfo:''
+                        }
+                        }
+                    ],
+                    dateTime:'',
+                    fullDescription:'',
+                    id:'',
+                    title:'',
+                    userInfoId:0
+                },
+      users:{
+                blogName:'',
+                fullName:'',
+                id:this.id,
+                post : {
+                    briefDescription : '',
+                    comments : [ 
+                        {
+                        comment : {
+                            dateTime :Number,
+                            email:'',
+                            id:this.id,
+                            textComment:'',
+                            userInfo:''
+                        }
+                        }
+                    ],
+                    dateTime:Number,
+                    fullDescription:'',
+                    id:this.id,
+                    title:''
+                }
+            }           
+
+      
     }
     
   },
     mounted() {
-      this.logMovies();
+      this.getLogin();
+      this.getPost()
     },
   methods: {
-      getPost() {
+      getLogin() {
         
-       axios.post("http://91.220.155.235:8080/auth-service/login?username=RonaldWeasley&password=4C1iTdXDpN")
-      .then((response) =>console.log(response))
+       axios.post("http://localhost:8080/auth-service/login?username=RonaldWeasley&password=4C1iTdXDpN")
+      .then((response) =>console.log('login'))
       .catch((error)=> console.log(error))
-//       axios.get('http://91.220.155.235:8080/auth-service/', {
-//     auth: {
-//         login: 'RonaldWeasley',
-//         password: '4C1iTdXDpN'
-//     }
-// })
-// .then(response => {
-//     console.log('Response:', response.data);
-// })
-// .catch(error => {
-//     console.error('Error:', error);
-// });
-      //  axios.get("http://91.220.155.235:8080/FrontTestingService-0.0.1/userInfo/findAll")
+
+      //  axios.get("http://localhost:8080/FrontTestingService-0.0.1/post/3")
       // .then((response) =>console.log(response))
       // .catch((error)=> console.log(error))
     },
-    async logMovies() {
-  
-}
+    getPost() {
+      
+      axios.get("http://localhost:8080/FrontTestingService-0.0.1/post/4")
+      .then((response) =>console.log(response))
+      .catch((error)=> console.log(error))
+    },
+    // setInfo() {
+    //   axios.get("http://localhost:8080/FrontTestingService-0.0.1/userInfo/findAll"
+    // ).then((response) =>console.log(response.data))
+    //   .catch((error)=> console.log(error))
+
+      
+    // }
+    
   },
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,500;1,500&display=swap');
+* {
+    box-sizing: border-box;}
+html {
+    width: 1820px;
+    width: 100%;
+
 }
+body {
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+    margin: 0;
+    padding: 0;
+    width: 1820px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family:'Nunito',sans-serif;
+    
 }
 </style>
