@@ -10,7 +10,7 @@ const router = createRouter({
   routes : [
     {path:'/userPosts/:id?',component:UserPosts},
     {path:'/',component:UserInfo},
-    {path:'/userPostWithComms/:id?',component:UserPostWithComms},
+    {path:'/userPostWithComms/:id?/:postId?',component:UserPostWithComms},
     
   ]
 })

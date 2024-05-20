@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="postSection_2">
-                        <router-link :to="'/userPostWithComms/' + post.user.id">
+                        <router-link :to="'/userPostWithComms/' + post.user.id + '/' + post.id">
                             <div class="postItem">{{ 'briefDesc ' +  post.briefDescription }}</div></router-link>
                             
                         </div>
