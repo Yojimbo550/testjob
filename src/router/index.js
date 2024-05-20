@@ -1,13 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import UserPost from '@/components/UserPost.vue'
+import UserPosts from '@/components/UserPosts.vue'
 import UserInfo from '@/components/UserInfo.vue'
+import UserPostWithComms from '@/components/UserPostWithComms.vue'
+
 
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes : [
-    {path:'/userPost/:id?',component:UserPost},
-    {path:'/',component:UserInfo}
+    {path:'/userPosts/:id?',component:UserPosts},
+    {path:'/',component:UserInfo},
+    {path:'/userPostWithComms/:id?',component:UserPostWithComms},
+    
   ]
 })
 

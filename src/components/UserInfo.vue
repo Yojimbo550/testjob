@@ -1,33 +1,39 @@
 <template>
     
     <div  class="PostList">
-        <h2>{{ $store.state.globalAllUsers }}</h2>
+        <!-- <h2>{{ $store.state.globalAllUsers }}</h2> -->
         
-        <input @submit.prevent="setInfo"  @click="setInfo" class="inputField__submit" type="submit" value="setInfo">
+        <input @click="setInfo"  class="inputField__submit" type="submit" value="setInfo">
         <input  @click="sort" class="inputField__submit" type="submit" value="sort">
         
             
-                      
+                 
                 <div @click="log" class="postForm" v-for="post in $store.state.globalAllPosts">
+                    
                     <div class="postSection_1">
                             <div class="postItem">{{ 'title ' +  post.title }}</div>
                         <div v-for="(user,index) in $store.state.globalAllUsers" :key="index">   
-                            <router-link  :to="'/userPost/' + post.user.id" >
+                            <router-link  :to="'/userPosts/' + post.user.id" >
                                 <div v-if="index === 0">{{ 'userName ' + post.user.fullName }}</div>
                             </router-link>
                             
                         </div>
                     </div>
                     <div class="postSection_2">
-                            <div class="postItem">{{ 'briefDesc ' +  post.briefDescription }}</div>
+                        <router-link :to="'/userPostWithComms/' + post.user.id">
+                            <div class="postItem">{{ 'briefDesc ' +  post.briefDescription }}</div></router-link>
+                            
                         </div>
                     <div class="postSection_3">
                             <div class="postItem">{{ 'num of comments ' + post.comments }}</div>
                             <div class="postItem">{{ 'last update ' + post.dateTime }}</div>
                             <div class="postItem">{{ 'postID ' + post.id }}</div>
                     </div>
+                
                 </div>  
-            
+                
+                
+               
     </div>
 </template>
 
@@ -40,23 +46,11 @@ import axios from 'axios';
                 this.sort();
                 
         },
-        props:  {
-            users: Array
-        },
+        
         data() {
             return {
                 
-            //         allUsersArray:[]
-            //         ,
-            //         allPosts:[ {
-            //             fullName:'',
-            //             blogName:'',
-            //             title:'',
-            //             briefDescription:'',
-            //             id:0,
-            //             dateTime:Number
-            //         }
-            //  ]
+            
             }
         },
 
@@ -100,9 +94,11 @@ import axios from 'axios';
     })
       .catch((error)=> console.log(error))
         
+        console.log("globalAllPosts")
         console.log(this.$store.state.globalAllPosts)
+        console.log("globalAllUsers")
         console.log(this.$store.state.globalAllUsers)
-        console.log(JSON.stringify(this.$store.state.globalAllPosts[0].user))
+        // console.log(JSON.stringify(this.$store.state.globalAllPosts[0].user))
         
     },
 

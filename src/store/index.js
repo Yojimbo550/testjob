@@ -5,7 +5,7 @@ export default createStore({
     return {
       globalAllUsers:[],
       globalAllPosts:[],
-      // currentId:3
+      
     }
   },
   getters: {
