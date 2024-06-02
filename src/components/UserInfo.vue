@@ -102,8 +102,8 @@ import axios from 'axios';
         
     },
 
-    sort() {
-        this.$store.state.globalAllPosts = this.$store.state.globalAllPosts.sort(function (a, b) {
+    async sort() {
+      this.$store.state.globalAllPosts = this.$store.state.globalAllPosts.sort(function (a, b) {
       if (b.dateTime > a.dateTime) {
         return 1;
       }

@@ -6,8 +6,8 @@
     <input type="submit" value="add new post">
     <input @click="postIt" type="submit" value="postIt">
         <!-- <input  @click="getPosts" class="inputField__submit" type="submit" value="getPosts"> -->
-        <input  @click="postTitle" class="inputField__submit" type="submit" value="postTitle">
-    <div>{{ $store.state.globalAllUsers[this.currentPostId].fullName }}</div>
+      
+    <div>{{ $store.state.globalAllUsers[this.currentPostId].blogName }}</div>
     <div class="postForm" v-for="post in $store.state.globalAllUsers[this.currentPostId].post">
         
                     <div class="postSection_1">
@@ -48,16 +48,16 @@ import axios from 'axios'
         },
         
         methods: {
-            postTitle() {
-            console.log("http://localhost:8080/FrontTestingService-0.0.1/post?userInfoId=" + this.currentUserId)
-                // console.log(this.$store.state.globalAllUsers)
-                // console.log(JSON.stringify(this.$store.state.globalAllUsers))n          
-                // console.log(this.$store.state.globalAllPosts)
-                // console.log(this.currentUserPosts)
-                // console.log(this.$store.state.globalAllUsers[this.currentPostId].id )
-                // console.log(this.$store.state.globalAllUsers[this.currentPostId].post)
-                // console.log(this.currentUserId)
-            },
+            // postTitle() {
+            // console.log("http://localhost:8080/FrontTestingService-0.0.1/post?userInfoId=" + this.currentUserId)
+            //     // console.log(this.$store.state.globalAllUsers)
+            //     // console.log(JSON.stringify(this.$store.state.globalAllUsers))n          
+            //     // console.log(this.$store.state.globalAllPosts)
+            //     // console.log(this.currentUserPosts)
+            //     // console.log(this.$store.state.globalAllUsers[this.currentPostId].id )
+            //     // console.log(this.$store.state.globalAllUsers[this.currentPostId].post)
+            //     // console.log(this.currentUserId)
+            // },
             getPosts() {
                 
                 this.currentUserId = this.$route.params.id
@@ -70,6 +70,7 @@ import axios from 'axios'
                 // console.log( this.$store.state.globalAllUsers.includes(this.currentId))
                 console.log(this.currentPostId)
                     console.log(this.currentUserId)
+                    console.log('ekw')
             },
             postIt() {
                 axios.post("http://localhost:8080/FrontTestingService-0.0.1/post?userInfoId=" + this.currentUserId, {
