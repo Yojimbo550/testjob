@@ -1,15 +1,19 @@
 <template>
     <div>
         <div>{{ $store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].dateTime }}</div>
-        <div :title="title">{{ $store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].title }}</div>
-        <div>{{ $store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].briefDescription }}</div>
-        <div>{{ $store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].fullDescription }}</div>
+        <!-- <div :title="title">{{ $store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].title }}</div> -->
+        <div :title="title">{{ title }}</div>
+        <div :briefDescription="briefDescription">{{ briefDescription }}</div>
+        <div :fullDescription="fullDescription">{{ fullDescription }}</div>
         <input @click="toggle" type="submit" value="Change post">
-        <input :fullDescription="fullDescription" @input="fullDescription = $event.target.value" v-show="isVisible" type="text" :value="inputValue">
+        <input :title="title" @input="title = $event.target.value" v-show="isVisible" type="text" :value="title">
+        <input :briefDescription="briefDescription" @input="briefDescription = $event.target.value" v-show="isVisible" type="text" :value="briefDescription">
+        <input :fullDescription="fullDescription" @input="fullDescription = $event.target.value" v-show="isVisible" type="text" :value="fullDescription">
+        
         <input v-show="isVisible" @click="sendChangedPost" type="submit" value="Send changed post">
         <div>{{ $store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].comments }}</div>
         <div>{{ $store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].id }}</div>
-        <div>{{ $store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray] }}</div>
+        <!-- <div>{{ $store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray] }}</div> -->
         <input @click="log" type="submit" value="log">
     </div>
 </template>
@@ -26,7 +30,9 @@ import axios from 'axios'
                 currentUserId:0,
                 currentPostInArray:0,
                 isVisible:false,
-                inputValue:''
+                briefDescription:'',
+                fullDescription:'',
+                title:'',
                 // inputValue:this.$store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].fullDescription 
             }
         },
@@ -43,11 +49,12 @@ import axios from 'axios'
             },
            async  sendChangedPost() {
                await axios.put("http://localhost:8080/FrontTestingService-0.0.1/post", {
-                    briefDescription: this.$store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].briefDescription,
+                    briefDescription: this.briefDescription,
                     fullDescription: this.fullDescription,
                     id:this.$route.params.postId,
-                    title: this.$store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].title
+                    title: this.title
                 })
+                this.toggle()
             },
             getPosts() {
                 
@@ -63,7 +70,12 @@ import axios from 'axios'
                         this.currentPostInArray = i
                     }                    
                  }
-                 this.inputValue = this.$store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].fullDescription
+                  this.fullDescription = this.$store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].fullDescription
+                 this.title = this.$store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].title
+                 this.briefDescription = this.$store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].briefDescription
+                //  this.inputFull = this.$store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].fullDescription
+                //  this.inputTitle = this.$store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].title
+                //  this.inputBrief = this.$store.state.globalAllUsers[this.currentPostId].post[this.currentPostInArray].briefDescription
                  
                 // console.log( this.$store.state.globalAllUsers.includes(this.currentId))
                 console.log(this.currentPostId)

@@ -3,7 +3,14 @@
     <div  class="PostList">
         <!-- <h2>{{ $store.state.globalAllUsers }}</h2> -->
         
-        <input @click="setInfo"  class="inputField__submit" type="submit" value="setInfo">
+        <input @click="toggle"  class="inputField__submit" type="submit" value="findPost">
+        <input  v-show="isVisible"  @input="currentPostId = $event.target.value"  type="number" :placeholder=placeholder>
+        
+        <router-link :to="'/postID/' + currentPostId">
+            <input @click="getPost" v-show="isVisible" type="submit" value="getPost">
+        </router-link>
+        
+        <input @click="setInfo"  class="inputField__submit" type="submit" value="deletePost">
         <input  @click="sort" class="inputField__submit" type="submit" value="sort">
         
             
@@ -49,13 +56,21 @@ import axios from 'axios';
         
         data() {
             return {
-                
+            currentPostId:0,   
+            isVisible:false,
             
-            }
+            placeholder:'enter post id'           
+        }
         },
 
         methods: {
-            
+            toggle() {
+                if(this.isVisible)
+                this.isVisible = false
+                else {
+                    this.isVisible = true
+                }
+            },
             getLogin() {
         
         axios.post("http://localhost:8080/auth-service/login?username=RonaldWeasley&password=4C1iTdXDpN")
@@ -63,6 +78,21 @@ import axios from 'axios';
        .catch((error)=> console.log(error))
  
        
+     },
+            async getPost() {
+              await  axios.get('http://localhost:8080/FrontTestingService-0.0.1/post/' + this.currentPostId)
+                .then((response) => {
+                    // this.$store.state.currentPost = response.data
+                    this.$store.state.currentPost = response.data
+                })
+                .catch((error) => {
+                    
+                    this.placeholder = 'enter correct post ID'
+                })
+                
+                // console.log(this.placeholder)
+                
+                
      },
             deletePost() {
                axios.delete("http://localhost:8080/FrontTestingService-0.0.1/userInfo/8") 
@@ -72,7 +102,7 @@ import axios from 'axios';
                     briefDescription: "string",
                     fullDescription: "string",
                     title: "string"
-                }
+                 }
                 
             )
             },
